@@ -1,52 +1,155 @@
-System;
-using System.Collections.Generic
+using System;
+using System.Collections.Generic;
 using System.Threading;
 
-ProblematicProblem
+namespace ProblematicProblem
 {
-    Program class
+    class Program
     {
         Random rng;
-static bool cont = true;
-static List<string> activities = new List<string>() { "Movies", "Paintball", "Bowling", "Lazer Tag", "LAN Party", "Hiking", "Axe Throwing", "Wine Tasting" }
-        static void Main(string[] args)
-{
-    Console.Write("Hello, welcome to the random activity generator! \nWould you like to generate a random activity? yes/no: ")
-            bool cont = bool.Parse(Console.ReadLine());
-    Console.WriteLine();
-    Console.Write("We are going to need your information first! What is your name? ");
-    string userName = Console.ReadLine();
-    Console.WriteLine();
-    Console.Write("What is your age? ");
-    int userAge = Console.ReadLine();
-    Console.WriteLine();
-    Console.Write("Would you like to see the current list of activities? Sure/No thanks: ");
-    bool seeList = bool.Parse(Console.ReadLine());
-    if (seeList)
+        static bool cont = true;
+        static bool valid;
+        static string tryAgain = "Invalid input, try again: ";
+        static List<string> activities = new List<string>() { "Movies",
+                                                              "Paintball",
+                                                              "Bowling",
+                                                              "Lazer Tag",
+                                                              "LAN Party",
+                                                              "Hiking",
+                                                              "Axe Throwing",
+                                                              "Wine Tasting" };
+    static void Main(string[] args)
     {
-        foreach (string activity in activities)
-        {
-            Console.Write($"{activity} ");
-            Thread.Sleep(250);
-        }
+            Console.Write("Hello, welcome to the random activity generator! \nWould you like to generate a random activity? yes/no: ");
+            do
+            {
+                
+                if (Console.ReadLine().ToLower() == "yes")
+                {
+                    cont = true;
+                    valid = true;
+                }
+                else if (Console.ReadLine().ToLower() == "no")
+                {
+                    cont = false;
+                    valid = true;
+                }
+                else
+                {
+                    valid = false;
+                    Console.Write(tryAgain);
+                }
+            } while (!valid);
+
+            //The program is proceeding regardless of choice, fix this
+
+            Console.WriteLine();
+            Console.Write("We are going to need your information first! What is your name? ");
+            string userName = Console.ReadLine();
+                
+            Console.WriteLine();
+            Console.Write("What is your age? ");
+            int userAge;
+            do
+            {
+                int.TryParse(Console.ReadLine(), out int ageInput);
+                if (ageInput > 0)
+                {
+                    userAge = ageInput;
+                    valid = true;
+                }
+                else
+                {
+                    valid = false;
+                    Console.Write(tryAgain);
+                }
+            } while (!valid);
+            Console.WriteLine();
+            Console.Write("Would you like to see the current list of activities? yes/no: ");
+            bool seeList;
+            do
+            {
+
+                if (Console.ReadLine().ToLower() == "yes")
+                {
+                    seeList = true;
+                    valid = true;
+                }
+                else if (Console.ReadLine().ToLower() == "no")
+                {
+                    seeList = false;
+                    valid = true;
+                }
+                else
+                {
+                    seeList = false;
+                    valid = false;
+                    Console.Write(tryAgain);
+                }
+            } while (!valid);
+            if (seeList)
+            {
+                    foreach (string activity in activities)
+                    {
+                         Console.Write($"{activity} ");
+                         Thread.Sleep(250);
+                    }
         Console.WriteLine();
         Console.Write("Would you like to add any activities before we generate one? yes/no: ");
-        bool addToList = bool.Parse(Console.ReadLine());
-        Console.WriteLine();
+                bool addToList;
+                do
+                {
+
+                    if (Console.ReadLine().ToLower() == "yes")
+                    {
+                        addToList = true;
+                        valid = true;
+                    }
+                    else if (Console.ReadLine().ToLower() == "no")
+                    {
+                        addToList = false;
+                        valid = true;
+                    }
+                    else
+                    {
+                        addToList = false;
+                        Console.Write(tryAgain);
+                    }
+                } while (!valid);
+                Console.WriteLine();
         while (addToList)
         {
             Console.Write("What would you like to add? ");
             string userAddition = Console.ReadLine();
             activities.Add(userAddition);
-            foreach (string activity activities)
+            foreach (string activity in activities)
             {
                 Console.Write($"{activity} ");
                 Thread.Sleep(250);
             }
             Console.WriteLine();
             Console.WriteLine("Would you like to add more? yes/no: ");
-            string addToList = bool.Parse(Console.ReadLine());
-        }
+                    do
+                    {
+
+                        if (Console.ReadLine().ToLower() == "yes")
+                        {
+                            addToList = true;
+                            valid = true;
+                        }
+                        else if (Console.ReadLine().ToLower() == "no")
+                        {
+                            addToList = false;
+                            valid = true;
+                        }
+                        else
+                        {
+                            addToList = false;
+                            Console.Write(tryAgain);
+                        }
+                    } while (!valid);
+                    //need to loop back here to where it adds activities
+                }
     }
 
     while (cont)
